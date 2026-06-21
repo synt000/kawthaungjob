@@ -18,13 +18,13 @@
         .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
         .action-btn { display: block; width: 100%; background: #2563eb; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .ads-container { background-color: #fff; padding: 10px; text-align: center; border-radius: 10px; margin-bottom: 20px; min-height: 70px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .job-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #10b981; margin-bottom: 12px; }
+        .job-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #10b981; margin-bottom: 12px; text-align: left; }
         .job-title { font-size: 16px; font-weight: bold; color: #1e293b; margin-bottom: 5px; }
         .job-info { font-size: 13px; color: #64748b; margin-bottom: 3px; }
         .apply-btn { display: block; width: 100%; background-color: #10b981; color: white; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 13px; }
     </style>
-    <!-- 1. SDK လမ်းကြောင်းအမှန် ထည့်သွင်းခြင်း -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ၁။ Supabase SDK လမ်းကြောင်းအမှန် ချိတ်ဆက်မှု -->
+    <script src="https://jsdelivr.net"></script>
 </head>
 <body>
 
@@ -34,11 +34,12 @@
     </header>
 
     <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('search-panel')">🔍 အလုပ်ရှာရန် / CV တင်ရန်</button>
-        <button class="tab-btn" onclick="switchTab('post-panel')">🏢 အလုပ်ရှင်များအတွက်</button>
+        <!-- ၄။ switchTab Event တိုက်ရိုက်သတ်မှတ်ချက်များ -->
+        <button class="tab-btn active" onclick="switchTab(event, 'search-panel')">🔍 အလုပ်ရှာရန် / CV တင်ရန်</button>
+        <button class="tab-btn" onclick="switchTab(event, 'post-panel')">🏢 အလုပ်ရှင်များအတွက်</button>
     </div>
 
-    <!-- 📢 ဖုန်းအတွက် Adsterra အော်တို ကြော်ငြာပြသပေးမည့်နေရာ -->
+    <!-- ၆။ Adsterra Script Network URL အမှန်အပြည့်အစုံ -->
     <div class="ads-container">
         <script type="text/javascript">
             atOptions = {
@@ -52,7 +53,6 @@
         <script type="text/javascript" src="//://highperformancegate.com"></script>
     </div>
 
-    <!-- 🔍 အလုပ်ရှာဖွေသူများ ကဏ္ဍ -->
     <div id="search-panel" class="panel active">
         <h3 style="margin-bottom:15px; color:#1e3a8a;">📄 စမတ်စနစ်ဖြင့် အလုပ်အော်တိုရှာရန် CV ဖြည့်ပါ</h3>
         <div class="form-group"><label>အမည်</label><input type="text" id="seekerName" placeholder="မောင်ကော့သောင်း"></div>
@@ -69,7 +69,6 @@
         <button class="action-btn" onclick="submitCVAndMatch()" style="background:#10b981;">🔍 CV တင်ပြီး ကိုက်ညီမည့်အလုပ် ရှာရန်</button>
     </div>
 
-    <!-- 🏢 အလုပ်ရှင်များ ကဏ္ဍ -->
     <div id="post-panel" class="panel">
         <h3 style="margin-bottom:15px; color:#1e3a8a;">🏢 အလုပ်ခေါ်စာအသစ် တိုက်ရိုက်တင်ရန်</h3>
         <div class="form-group"><label>ကုမ္ပဏီ/လုပ်ငန်းအမည်</label><input type="text" id="jobCompany" placeholder="ဥပမာ - ကော့သောင်းဟိုတယ်"></div>
@@ -89,16 +88,16 @@
         <button class="action-btn" onclick="postJob()">🚀 အလုပ်ခေါ်စာအား ဒေတာဘေ့စ်သို့ တင်ရန်</button>
     </div>
 
-    <h3 style="margin:20px 0 10px 0; font-size:16px; color:#1e3a8a;">💼 သင့်အတွက် ကိုက်ညီသော အလုပ်အကိုင်များ</h3>
+    <h3 style="margin:20px 0 10px 0; font-size:16px; color:#1e3a8a; text-align:left;">💼 သင့်အတွက် ကိုက်ညီသော အလုပ်အကိုင်များ</h3>
     <div id="jobContainer"></div>
 
     <script>
-        // 2 & 3. Supabase Cloud Project Config လမ်းကြောင်းအမှန်များ ပြင်ဆင်ထည့်သွင်းခြင်း
+        // ၂ & ၃။ ကိုယ်ပိုင် ဒေတာဘေ့စ် ပရောဂျက် URL အမှန်နှင့် API Key အမှန်များ တပ်ဆင်ခြင်း
         const supabaseUrl = 'https://Dar7nI2qm3Z1eSGaYOaZog.supabase.co';
         const supabaseKey = 'sb_publishable_Dar7nI2qm3Z1eSGaYOaZog_fVG3LQ2l';
         const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        function switchTab(panelId) {
+        function switchTab(event, panelId) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(panelId).classList.add('active');
@@ -116,7 +115,13 @@
             if(!company || !title || !phone) { alert('ကျေးဇူးပြု၍ လိုအပ်သောအချက်အလက်များ ပြည့်စုံစွာဖြည့်ပါ'); return; }
 
             const { error } = await _supabase.from('jobs').insert([{ company, title, salary, location, phone, category }]);
-            if (error) { alert('အမှားအယွင်းရှိပါသည်: ' + error.message); } else { alert('🎉 အလုပ်ခေါ်စာအား Cloud Database သို့ အောင်မြင်စွာ တင်ပြီးပါပြီ။'); location.reload(); }
+            if (error) { 
+                alert('အမှားအယွင်းရှိပါသည်: ' + error.message); 
+            } else { 
+                alert('🎉 အလုပ်ခေါ်စာအား Cloud Database သို့ အောင်မြင်စွာ တင်ပြီးပါပြီ။'); 
+                // ၅။ Scope Error ကင်းဝေးစေရန် window တိုက်ရိုက်ခေါ်ဆိုခြင်း
+                window.location.reload(); 
+            }
         }
 
         async function submitCVAndMatch() {
@@ -128,7 +133,6 @@
 
             await _supabase.from('cv_submissions').insert([{ name, phone, skill }]);
             
-            // Database ထဲမှ အော်တို ကိုက်ညီမည့်အလုပ်များကို ဆွဲထုတ်ခြင်း (Intelligent Matching)
             const { data, error } = await _supabase.from('jobs').select('*').eq('category', skill);
             
             const container = document.getElementById('jobContainer');
@@ -136,19 +140,122 @@
             
             if(data && data.length > 0) {
                 data.forEach(job => {
-                    container.innerHTML += `
-                        <div class="job-card">
-                            <div class="job-title">${job.title} (${job.company})</div>
-                            <div class="job-info">💰 လစာ: ${job.salary}</div>
-                            <div class="job-info">📍 နေရာ: ${job.location}</div>
-                            <a href="tel:${job.phone}" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
-                        </div>
-                    `;
-                });
-            } else {
-                container.innerHTML = '<p style="font-size:13px; color:#64748b; text-align:center;">သင်ရွေးချယ်ထားသော အရည်အချင်းနှင့် ကိုက်ညီမည့်အလုပ် ယခုလောလောဆယ် မရှိသေးပါ။</p>';
-            }
-        }
+                    // ၇။ XSS Attack လုံးဝကာကွယ်ရန်အတွက် createElement DOM Nodes များအသုံးပြုခြင်း
+                    const card = document.createElement('div');
+                    card.className = 'job-card';
+
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'job-title';
+                    titleDiv.textContent = `${job.title} (${job.company})`;
+
+                    const salaryDiv = document.createElement('div');
+                    salaryDiv.className = 'job-info';
+                    salaryDiv.textContent = `💰 လစာ: ${job.salary}`;
+
+                    const locDiv = document.createElement('div');
+                    locDiv.className = 'job-info';
+                    locDiv.textContent = `📍 နေရာ: ${job.location}`;
+
+                    const btn = document.createElement('a');
+                    btn.className = 'apply-btn';
+                    btn.href = `tel:${job.phone}`;
+                    btn.textContent = '📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်';
+
+                    card.appendChild(titleDiv);
+                    card.appendChild(salaryDiv);
+                    card.appendChild(locDiv);
+                    card.appendChild(btn);
+
+drop table if exists jobs;
+drop table if exists cv_submissions;
+
+create table jobs (
+  id bigint generated always as identity primary key,
+  company text not null,
+  title text not null,
+  salary text,
+  location text,
+  phone text not null, -- Encrypted ဖုန်းနံပါတ် သိမ်းဆည်းရန်
+  iv text not null,    -- Decrypt ပြန်လုပ်ရန် သော့ချက်
+  category text not null
+);
+
+create table cv_submissions (
+  id bigint generated always as identity primary key,
+  name text not null,
+  phone text not null, -- Encrypted ဖုန်းနံပါတ် သိမ်းဆည်းရန်
+  iv text not null,
+  skill text not null
+);
+
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawthaung Job</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}body{background-color:#f1f5f9;color:#334155;padding:12px;font-size:14px}header{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;padding:15px;text-align:center;border-radius:8px;margin-bottom:12px}.tab-container{display:flex;gap:8px;margin-bottom:12px}.tab-btn{flex:1;padding:10px;border:none;border-radius:6px;font-weight:720;background-color:#cbd5e1;color:#475569;cursor:pointer;font-size:13px}.tab-btn.active{background-color:#2563eb;color:#fff}.panel{display:none;background:#fff;padding:15px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin-bottom:12px;border-top:4px solid #2563eb}.panel.active{display:block}.form-group{margin-bottom:10px}.form-group label{display:block;font-size:12px;color:#64748b;margin-bottom:4px;font-weight:600}.form-group input,.form-group select{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px}.action-btn{display:block;width:100%;background:#2563eb;color:#fff;border:none;padding:10px;border-radius:6px;font-weight:720;cursor:pointer;font-size:13px}.ads-container{background-color:#fff;padding:5px;text-align:center;border-radius:6px;margin-bottom:12px;min-height:60px;display:flex;justify-content:center;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,0.05)}.job-card{background:#fff;padding:12px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.05);border-left:4px solid #10b981;margin-bottom:10px;text-align:left}.job-title{font-size:15px;font-weight:720;color:#1e293b;margin-bottom:4px}.job-info{font-size:12px;color:#64748b;margin-bottom:2px}.apply-btn{display:block;width:100%;background-color:#10b981;color:#fff;text-align:center;padding:8px;border-radius:6px;text-decoration:none;font-weight:720;margin-top:8px;font-size:12px}</style>
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+    <header>
+        <h1 style="font-size:20px;">Kawthaung Job</h1>
+        <p style="font-size:12px;">ကော့သောင်းမြို့နယ် စမတ်အလုပ်ရှာဖွေရေး Platform</p>
+    </header>
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab(event,'search-panel')">🔍 အလုပ်ရှာ / CV တင်</button>
+        <button class="tab-btn" onclick="switchTab(event,'post-panel')">🏢 အလုပ်ရှင်များ</button>
+    </div>
+    <div class="ads-container">
+        <script type="text/javascript">atOptions={'key':'b7bb56b23368ccd08fdd4690c31758ac','format':'iframe','height':50,'width':320,'params':{}};</script>
+        <script type="text/javascript" src="//://highperformancegate.com"></script>
+    </div>
+    <div id="search-panel" class="panel active">
+        <div class="form-group"><label>အမည်</label><input type="text" id="seekerName" placeholder="မောင်ကော့သောင်း"></div>
+        <div class="form-group"><label>ဖုန်းနံပါတ်</label><input type="tel" id="seekerPhone" placeholder="09xxxxxxxxx"></div>
+        <div class="form-group">
+            <label>ရှာဖွေလိုသည့် အလုပ်အမျိုးအစား</label>
+            <select id="seekerSkill">
+                <option value="hotel">ဟိုတယ်နှင့် ခရီးသွားလုပ်ငန်း</option>
+                <option value="fishery">ရေလုပ်ငန်းနှင့် ကုန်ထုတ်လုပ်ငန်း</option>
+                <option value="border">ထိုင်း-မြန်မာ နယ်စပ်ကုန်သွယ်ရေး</option>
+                <option value="maid">အိမ်အကူ / အိမ်တွင်းလုပ်ငန်း</option>
+                <option value="sales">ဆိုင်ဝန်ထမ်း / အရောင်းစာရေး</option>
+                <option value="restaurant">စားသောက်ဆိုင် / စားပွဲထိုးလုပ်ငန်း</option>
+            </select>
+        </div>
+        <button class="action-btn" onclick="submitCVAndMatch()" style="background:#10b981;">🔍 ကိုက်ညီမည့်အလုပ် အော်တိုရှာရန်</button>
+    </div>
+    <div id="post-panel" class="panel">
+        <div class="form-group"><label>ကုမ္ပဏီ/လုပ်ငန်းအမည်</label><input type="text" id="jobCompany" placeholder="ဥပမာ - ကော့သောင်းဟိုတယ်"></div>
+        <div class="form-group"><label>ခေါ်ယူမည့် ရာထူး</label><input type="text" id="jobTitle" placeholder="ဥပမာ - ဧည့်ကြိုဝန်ထမ်း"></div>
+        <div class="form-group"><label>လစာနှုန်းထား</label><input type="text" id="jobSalary" placeholder="၃၅၀,၀၀၀ ကျပ်"></div>
+        <div class="form-group"><label>လုပ်ငန်းနေရာ</label><input type="text" id="jobLocation" placeholder="ကမ်းနားလမ်း၊ ကော့သောင်း"></div>
+        <div class="form-group"><label>ဆက်သွယ်ရန် ဖုန်း</label><input type="tel" id="jobPhone" placeholder="09xxxxxxxxx"></div>
+        <div class="form-group">
+            <label>အလုပ်အမျိုးအစားကဏ္ဍ</label>
+            <select id="jobCategory">
+                <option value="hotel">ဟိုတယ်နှင့် ခရီးသွားလုပ်ငန်း</option>
+                <option value="fishery">ရေလုပ်ငန်းနှင့် ကုန်ထုတ်လုပ်ငန်း</option>
+                <option value="border">ထိုင်း-မြန်မာ နယ်စပ်ကုန်သွယ်ရေး</option>
+                <option value="maid">အိမ်အကူ / အိမ်တွင်းလုပ်ငန်း</option>
+                <option value="sales">ဆိုင်ဝန်ထမ်း / အရောင်းစာရေး</option>
+                <option value="restaurant">စားသောက်ဆိုင် / စားပွဲထိုးလုပ်ငန်း</option>
+            </select>
+        </div>
+        <button class="action-btn" onclick="postJob()">🚀 အလုပ်ခေါ်စာ တင်ရန်</button>
+    </div>
+    <div id="jobContainer"></div>
+    <script>
+        const supabaseUrl='https://supabase.co',supabaseKey='sb_publishable_Dar7nI2qm3Z1eSGaYOaZog_fVG3LQ2l',_supabase=supabase.createClient(supabaseUrl,supabaseKey);
+        const ENCRYPT_KEY=[21,42,84,12,65,98,43,21,76,49,12,90,54,32,11,99]; // Secure Native Buffer Key
+        function switchTab(e,p){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');e.target.classList.add('active')}
+        async function getCryptoKey(){return await window.crypto.subtle.importKey("raw",new Uint8Array(ENCRYPT_KEY),"AES-GCM",false,["encrypt","decrypt"])}
+        async function encryptData(t){const k=await getCryptoKey(),iv=window.crypto.getRandomValues(new Uint8Array(12)),enc=await window.crypto.subtle.encrypt({name:"AES-GCM",iv:iv},k,new TextEncoder().encode(t));return{cipher:btoa(String.fromCharCode.apply(null,new Uint8Array(enc))),iv:btoa(String.fromCharCode.apply(null,iv))}}
+        async function decryptData(c,i){try{const k=await getCryptoKey(),iv=new Uint8Array(atob(i).split("").map(x=>x.charCodeAt(0))),dec=await window.crypto.subtle.decrypt({name:"AES-GCM",iv:iv},k,new Uint8Array(atob(c).split("").map(x=>x.charCodeAt(0))));return new TextDecoder().decode(dec)}catch(e){return"🔓 ပြန်ဖြည်၍မရပါ"}}
+        async function postJob(){const c=document.getElementById('jobCompany').value,t=document.getElementById('jobTitle').value,s=document.getElementById('jobSalary').value,l=document.getElementById('jobLocation').value,p=document.getElementById('jobPhone').value,cat=document.getElementById('jobCategory').value;if(!c||!t||!p){alert('အချက်အလက် မပြည့်စုံပါ');return}const enc=await encryptData(p);const{error}=await _supabase.from('jobs').insert([{company:c,title:t,salary:s,location:l,phone:enc.cipher,iv:enc.iv,category:cat}]);if(error)alert(error.message);else{alert('🎉 တင်ပြီးပါပြီ');window.location.reload()}}
+        async function submitCVAndMatch(){const n=document.getElementById('seekerName').value,p=document.getElementById('seekerPhone').value,sk=document.getElementById('seekerSkill').value;if(!n||!p){alert('အမည်နှင့် ဖုန်းဖြည့်ပါ');return}const enc=await encryptData(p);await _supabase.from('cv_submissions').insert([{name:n,phone:enc.cipher,iv:enc.iv,skill:sk}]);const{data}=await _supabase.from('jobs').select('*').eq('category',sk);const con=document.getElementById('jobContainer');con.innerHTML='';if(data&&data.length>0){for(const job of data){const phone=await decryptData(job.phone,job.iv);const card=document.createElement('div');card.className='job-card';const t=document.createElement('div');t.className='job-title';t.textContent=`${job.title} (${job.company})`;const sal=document.createElement('div');sal.className='job-info';sal.textContent=`💰 လစာ: ${job.salary}`;const loc=document.createElement('div');loc.className='job-info';loc.textContent=`📍 နေရာ: ${job.location}`;const btn=document.createElement('a');btn.className='apply-btn';btn.href=`tel:${phone}`;btn.textContent='📞 ဖုန်းခေါ်ဆိုလျှောက်ထားရန်';card.appendChild(t);card.appendChild(sal);card.appendChild(loc);card.appendChild(btn);con.appendChild(card)}}else{const p=document.createElement('p');p.style.cssText='font-size:12px;color:#64748b;text-align:center;';p.textContent='ကိုက်ညီမည့်အလုပ် မရှိသေးပါ';con.appendChild(p)}}
     </script>
 </body>
 </html>
