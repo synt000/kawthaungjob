@@ -1,45 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Pro Web Server</title>
+    <title>Kawthaung Job - ကော့သောင်းအလုပ်အကိုင်</title>
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            text-align: center;
-            padding: 50px 20px;
-        }
-        h1 { color: #00ffcc; font-size: 2.5rem; }
-        p { color: #aaaaaa; font-size: 1.2rem; }
-        .btn {
-            display: inline-block;
-            background-color: #7360f2;
-            color: #ffffff;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(115, 96, 242, 0.4);
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background-color: #ffffff;
-            color: #7360f2;
-            transform: translateY(-3px);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f1f5f9; color: #334155; padding: 15px; }
+        header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 25px 15px; text-align: center; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        header h1 { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        header p { font-size: 14px; opacity: 0.9; }
+        .ads-banner { background-color: #fef08a; border: 2px dashed #f59e0b; color: #854d0e; padding: 15px; text-align: center; border-radius: 10px; margin-bottom: 20px; font-weight: bold; font-size: 14px; }
+        .job-list { display: flex; flex-direction: column; gap: 15px; }
+        .job-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #3b82f6; position: relative; }
+        .job-badge { background-color: #dbeafe; color: #1e40af; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
+        .job-title { font-size: 18px; color: #1e293b; margin-bottom: 8px; font-weight: 700; }
+        .job-info { font-size: 14px; color: #64748b; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .apply-btn { display: block; width: 100%; background-color: #10b981; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(16,185,129,0.2); }
+        .apply-btn:hover { background-color: #059669; }
+        footer { text-align: center; margin-top: 30px; font-size: 12px; color: #94a3b8; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <h1>လန်းဆန်းသော နည်းပညာ ကမ္ဘာမှ ကြိုဆိုပါသည်</h1>
-    <p>ဒီနေရာမှာ လူစိတ်ဝင်စားမယ့် နည်းပညာ Tool တွေနဲ့ အလန်းစား Scripts တွေကို အမြဲတင်ပေးသွားမှာ ဖြစ်ပါတယ်။</p>
+    <header>
+        <h1>Kawthaung Job</h1>
+        <p>ကော့သောင်းမြို့နယ် အလုပ်အကိုင်ရှာဖွေရေးစာမျက်နှာ</p>
+    </header>
 
-    <a href="viber://chat?number=%2B959686563395" class="btn">ကျွန်ုပ်တို့အား Viber ဖြင့် ဆက်သွယ်ရန်</a>
+    <!-- 📢 ကြော်ငြာထည့်ရန်နေရာ -->
+    <div class="ads-banner">
+        📢 ကြော်ငြာနေရာ (Ads Space)<br>
+        <span style="font-size: 12px; font-weight: normal; color: #a16207;">ဒီနေရာတွင် ဆိုင်ကြော်ငြာများ သို့မဟုတ် Google AdSense ကုဒ်များ ထည့်သွင်းနိုင်ပါသည်။</span>
+    </div>
+
+    <div class="job-list">
+        <!-- အလုပ်ကတ်ပြား ၁ -->
+        <div class="job-card">
+            <span class="job-badge">အချိန်ပြည့် (Full-time)</span>
+            <div class="job-title">ဟိုတယ် ဧည့်ကြိုဝန်ထမ်း (Receptionist)</div>
+            <div class="job-info">💰 လစာ: ၃၅၀,၀၀၀ ကျပ်</div>
+            <div class="job-info">📍 နေရာ: ကော့သောင်းမြို့ (မြို့လယ်)</div>
+            <div class="job-info">🕒 ပိတ်ရက်: တစ်ပတ် ၁ ရက်</div>
+            <a href="tel:0912345678" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
+        </div>
+
+        <!-- အလုပ်ကတ်ပြား ၂ -->
+        <div class="job-card">
+            <span class="job-badge">အမြန်အလိုရှိသည်</span>
+            <div class="job-title">စတိုးဆိုင် အရောင်းဝန်ထမ်း (Male/Female)</div>
+            <div class="job-info">💰 လစာ: ၂၈၀,၀၀၀ ကျပ်</div>
+            <div class="job-info">📍 နေရာ: ဘုရင့်နောင်အနီး၊ ကော့သောင်းမြို့</div>
+            <a href="tel:0987654321" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Kawthaung Job. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
