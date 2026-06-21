@@ -23,8 +23,8 @@
         .job-info { font-size: 13px; color: #64748b; margin-bottom: 3px; }
         .apply-btn { display: block; width: 100%; background-color: #10b981; color: white; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 13px; }
     </style>
-    <!-- Supabase Library SDK အော်တိုချိတ်ဆက်ခြင်း -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- 1. SDK လမ်းကြောင်းအမှန် ထည့်သွင်းခြင်း -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -38,10 +38,16 @@
         <button class="tab-btn" onclick="switchTab('post-panel')">🏢 အလုပ်ရှင်များအတွက်</button>
     </div>
 
-    <!-- 📢 ဖုန်းအတွက် အော်တို ကြော်ငြာပြသပေးမည့်နေရာ -->
+    <!-- 📢 ဖုန်းအတွက် Adsterra အော်တို ကြော်ငြာပြသပေးမည့်နေရာ -->
     <div class="ads-container">
         <script type="text/javascript">
-            atOptions = { 'key' : 'b7bb56b23368ccd08fdd4690c31758ac', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+            atOptions = {
+                'key' : 'b7bb56b23368ccd08fdd4690c31758ac',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
         </script>
         <script type="text/javascript" src="//://highperformancegate.com"></script>
     </div>
@@ -87,8 +93,8 @@
     <div id="jobContainer"></div>
 
     <script>
-        // Supabase Cloud Database ချိန်ဆက်ခြင်း တိုက်ရိုက်ထည့်သွင်းမှု
-        const supabaseUrl = 'https://supabase.co';
+        // 2 & 3. Supabase Cloud Project Config လမ်းကြောင်းအမှန်များ ပြင်ဆင်ထည့်သွင်းခြင်း
+        const supabaseUrl = 'https://Dar7nI2qm3Z1eSGaYOaZog.supabase.co';
         const supabaseKey = 'sb_publishable_Dar7nI2qm3Z1eSGaYOaZog_fVG3LQ2l';
         const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -122,7 +128,7 @@
 
             await _supabase.from('cv_submissions').insert([{ name, phone, skill }]);
             
-            // Database ထဲမှ အော်တို ကိုက်ညီမည့်အလုပ်များကို ဆွဲထုတ်ခြင်း (Intelligent Algorithmic Matching)
+            // Database ထဲမှ အော်တို ကိုက်ညီမည့်အလုပ်များကို ဆွဲထုတ်ခြင်း (Intelligent Matching)
             const { data, error } = await _supabase.from('jobs').select('*').eq('category', skill);
             
             const container = document.getElementById('jobContainer');
