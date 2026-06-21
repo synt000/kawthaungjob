@@ -3,34 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kawthaung Job - ကော့သောင်းအလုပ်အကိုင်</title>
+    <title>Kawthaung Job - Smart Match Platform</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f1f5f9; color: #334155; padding: 15px; }
         header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 25px 15px; text-align: center; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         header h1 { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
         header p { font-size: 14px; opacity: 0.9; }
+        
+        /* 📋 Smart CV Matching Form Style */
+        .cv-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 5px solid #2563eb; }
+        .cv-box h3 { font-size: 16px; color: #1e3a8a; margin-bottom: 15px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 13px; color: #64748b; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; color: #334155; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: #2563eb; }
+        .match-btn { display: block; width: 100%; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 6px rgba(37,99,235,0.2); }
+        .match-btn:hover { background: #1d4ed8; }
+        
         .ads-container { background-color: #fff; padding: 10px; text-align: center; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; min-height: 70px; overflow: hidden; }
+        
+        .section-title { font-size: 16px; color: #1e3a8a; font-weight: bold; margin-bottom: 12px; border-left: 4px solid #2563eb; padding-left: 8px; }
         .job-list { display: flex; flex-direction: column; gap: 15px; }
-        .job-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #3b82f6; position: relative; }
+        .job-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #3b82f6; transition: all 0.3s ease; }
         .job-card.urgent { border-left-color: #ef4444; }
         .job-badge { background-color: #dbeafe; color: #1e40af; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
         .job-badge.urgent-tag { background-color: #fee2e2; color: #991b1b; }
         .job-title { font-size: 18px; color: #1e293b; margin-bottom: 8px; font-weight: 700; }
-        .job-info { font-size: 14px; color: #64748b; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
-        .apply-btn { display: block; width: 100%; background-color: #10b981; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(16,185,129,0.2); }
-        .apply-btn:hover { background-color: #059669; }
-        footer { text-align: center; margin-top: 30px; font-size: 12px; color: #94a3b8; padding-bottom: 20px; }
+        .job-info { font-size: 14px; color: #64748b; margin-bottom: 5px; }
+        .apply-btn { display: block; width: 100%; background-color: #10b981; color: white; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; font-size: 14px; }
+        
+        /* 🔔 Result Alert Box */
+        .result-status { background-color: #e0f2fe; color: #0369a1; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; font-weight: bold; display: none; text-align: center; }
+        
+        footer { text-align: center; margin-top: 40px; font-size: 12px; color: #94a3b8; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Kawthaung Job</h1>
-        <p>ကော့သောင်းမြို့နယ် အလုပ်အကိုင်ရှာဖွေရေးစာမျက်နှာ</p>
+        <p>ကော့သောင်းမြို့နယ် စမတ်အလုပ်ရှာဖွေရေး စနစ်သစ်</p>
     </header>
 
-    <!-- 📢 ဖုန်းအတွက် အော်တို ကြော်ငြာပြသပေးမည့်နေရာ -->
+    <!-- 📋 ၁။ စမတ် CV ဖောင်နှင့် အော်တိုကိုက်ညီမှုစနစ် -->
+    <div class="cv-box">
+        <h3>📄 စမတ်စနစ်ဖြင့် အလုပ်အော်တိုရှာရန် CV ဖြည့်ပါ</h3>
+        <div class="form-group">
+            <label for="seekerName">အမည်</label>
+            <input type="text" id="seekerName" placeholder="မောင်ကော့သောင်း">
+        </div>
+        <div class="form-group">
+            <label for="seekerSkill">မိမိတတ်ကျွမ်းသည့် အရည်အချင်း/အလုပ်အကိုင်အမျိုးအစား</label>
+            <select id="seekerSkill">
+                <option value="all">-- အလုပ်အားလုံးပြရန် --</option>
+                <option value="hotel">ဟိုတယ်ဝန်ထမ်း / ဧည့်ကြို (Receptionist)</option>
+                <option value="sales">အရောင်းဝန်ထမ်း / စတိုးဆိုင် (Sales)</option>
+                <option value="mechanic">စက်ပြင်ဆရာ / ဝပ်ရှော့ (Mechanic)</option>
+                <option value="driver">ကုန်တင်/ကားမောင်းဝန်ထမ်း (Driver)</option>
+            </select>
+        </div>
+        <button class="match-btn" onclick="matchJobs()">🔍 မိမိနှင့်ကိုက်ညီမည့်အလုပ်ကို အော်တိုရှာရန်</button>
+    </div>
+
+    <!-- 📢 ၂။ အော်တို ဖုန်းကြော်ငြာပြသပေးမည့်နေရာ -->
     <div class="ads-container">
         <script type="text/javascript">
             atOptions = {
@@ -44,44 +80,44 @@
         <script type="text/javascript" src="//://highperformancegate.com"></script>
     </div>
 
-    <div class="job-list">
+    <!-- 💼 ၃။ အလုပ်အကိုင်ပြသရာနေရာ -->
+    <div class="section-title" id="listTitle">💼 ရရှိနိုင်သော အလုပ်အကိုင်များ</div>
+    <div class="result-status" id="matchStatus"></div>
+    
+    <div class="job-list" id="jobContainer">
         <!-- အလုပ် ၁ -->
-        <div class="job-card urgent">
+        <div class="job-card urgent" data-category="hotel">
             <span class="job-badge urgent-tag">🔥 အမြန်အလိုရှိသည်</span>
             <div class="job-title">ဟိုတယ် ဧည့်ကြိုဝန်ထမ်း (Receptionist - Male/Female)</div>
             <div class="job-info">💰 လစာ: ၃၅၀,၀၀၀ ကျပ် + ဘောနပ်စ်</div>
             <div class="job-info">📍 နေရာ: ကော့သောင်းမြို့ (မြို့လယ် ကမ်းနားလမ်းအနီး)</div>
-            <div class="job-info">💬 လိုအပ်ချက်: အခြေခံ ထိုင်းစာ သို့မဟုတ် အင်္ဂလိပ်စာ ပြောနိုင်ရမည်။</div>
             <a href="tel:09422001122" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
         </div>
 
         <!-- အလုပ် ၂ -->
-        <div class="job-card">
+        <div class="job-card" data-category="mechanic">
             <span class="job-badge">အချိန်ပြည့် (Full-time)</span>
             <div class="job-title">မော်တော်ဆိုင်ကယ်နှင့် ကားဝပ်ရှော့ ဆရာ/အကူ ဝန်ထမ်း</div>
-            <div class="job-info">💰 လစာ: ၄၀၀,၀၀၀ ကျပ် (ပညာရင်အပေါ်မူတည်၍ ညှိနှိုင်း)</div>
-            <div class="job-info">📍 နေရာ: ပြည်တော်အေးရပ်ကွက်، ကော့သောင်းမြို့</div>
-            <div class="job-info">🕒 ပိတ်ရက်: တစ်ပတ် ၁ ရက် (တနင်္ဂနွေနေ့ ပိတ်သည်)</div>
+            <div class="job-info">💰 လစာ: ၄००,၀၀၀ ကျပ်</div>
+            <div class="job-info">📍 နေရာ: ပြည်တော်အေးရပ်ကွက်၊ ကော့သောင်းမြို့</div>
             <a href="tel:09250112233" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
         </div>
 
         <!-- အလုပ် ၃ -->
-        <div class="job-card">
+        <div class="job-card" data-category="sales">
             <span class="job-badge">အမျိုးသမီးဦးစားပေး</span>
             <div class="job-title">စတိုးဆိုင် အရောင်းစာရေး (Cashier / Sales)</div>
             <div class="job-info">💰 လစာ: ၂၈၀,၀၀၀ ကျပ် + နေ့ဆွမ်းကျွေးသည်</div>
             <div class="job-info">📍 နေရာ: ဘုရင့်နောင်ဈေးအနီး၊ ကော့သောင်းမြို့</div>
-            <div class="job-info">💬 လိုအပ်ချက်: ကွန်ပျူတာ အခြေခံ (Excel) အနည်းငယ် အသုံးပြုတတ်ရမည်။</div>
             <a href="tel:09790123456" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
         </div>
 
         <!-- အလုပ် ၄ -->
-        <div class="job-card urgent">
+        <div class="job-card urgent" data-category="driver">
             <span class="job-badge urgent-tag">🔥 အမြန်အလိုရှိသည်</span>
-            <div class="job-title">ดေသတွင်း ကုန်တင်ယာဉ်မောင်း (Driver - လိုင်စင် ဃ)</div>
-            <div class="job-info">💰 လစာ: ၅၀၀,၀၀၀ ကျပ် + လမ်းစရိတ် သီးသန့်ပေးမည်</div>
+            <div class="job-title">ဒေသတွင်း ကုန်တင်ယာဉ်မောင်း (Driver - လိုင်စင် ဃ)</div>
+            <div class="job-info">💰 လစာ: ၅၀၀,၀၀၀ ကျပ် + လမ်းစရိတ်</div>
             <div class="job-info">📍 နေရာ: အဝေးပြေးကားကွင်းအနီး၊ ကော့သောင်းမြို့</div>
-            <div class="job-info">💬 လိုအပ်ချက်: ကော့သောင်း - မြိတ် လမ်းကြောင်း ကျွမ်းကျင်သူ ဖြစ်ရမည်။</div>
             <a href="tel:09960556677" class="apply-btn">📞 အခုပဲ ဖုန်းခေါ်ဆိုလျှောက်ထားရန်</a>
         </div>
     </div>
@@ -89,6 +125,44 @@
     <footer>
         <p>© 2026 Kawthaung Job. All Rights Reserved.</p>
     </footer>
+
+    <!-- 🧠 Smart Matching Algorithm Engine -->
+    <script>
+        function matchJobs() {
+            var name = document.getElementById("seekerName").value.trim();
+            var selectedSkill = document.getElementById("seekerSkill").value;
+            var jobs = document.getElementsByClassName("job-card");
+            var statusBox = document.getElementById("matchStatus");
+            var count = 0;
+            
+            if(name === "") { name = "အလုပ်ရှာဖွေသူ"; }
+
+            for (var i = 0; i < jobs.length; i++) {
+                var jobCategory = jobs[i].getAttribute("data-category");
+                if (selectedSkill === "all" || jobCategory === selectedSkill) {
+                    jobs[i].style.display = "block";
+                    count++;
+                } else {
+                    jobs[i].style.display = "none";
+                }
+            }
+
+            statusBox.style.display = "block";
+            if(selectedSkill === "all") {
+                statusBox.innerHTML = "✨ မင်္ဂလာပါ " + name + "၊ လတ်တလော ဖွင့်လှစ်ထားသော အလုပ်အကိုင်အားလုံးကို ပြသပေးထားပါသည်။";
+                statusBox.style.backgroundColor = "#e0f2fe";
+                statusBox.style.color = "#0369a1";
+            } else if (count > 0) {
+                statusBox.innerHTML = "🎉 ဟုတ်ကဲ့ " + name + " ရှာဖွေမှုနှင့် ကွက်တိကိုက်ညီသော အလုပ်အကိုင် (" + count + ") ခုကို အော်တို ရှာဖွေတွေ့ရှိပါသဖြင့် အောက်တွင် ဖော်ပြပေးလိုက်ပါသည်။";
+                statusBox.style.backgroundColor = "#dcfce7";
+                statusBox.style.color = "#15803d";
+            } else {
+                statusBox.innerHTML = "ℹ️ စိတ်မကောင်းပါဘူး " + name + "၊ သင်ရွေးချယ်ထားသော ကဏ္ဍအတွက် လက်ရှိအချိန်တွင် အလုပ်သစ်မရှိသေးပါ။ အခြားကဏ္ဍများကို ပြောင်းလဲစမ်းသပ်ကြည့်ပါ။";
+                statusBox.style.backgroundColor = "#fee2e2";
+                statusBox.style.color = "#b91c1c";
+            }
+        }
+    </script>
 
 </body>
 </html>
